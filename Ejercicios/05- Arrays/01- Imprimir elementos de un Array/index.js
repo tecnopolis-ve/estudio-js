@@ -2,12 +2,12 @@
 // //En el parametro colocamos un array vacío para evitar default values
 
 // //function printList
-// function printElements (myArray = []) {
-//     for (let i = 0; i < myArray.length; i++); 
+function printElements (myArray = []) {
+    for (let i = 0; i < myArray.length; i++); 
 
-//     console.log(myArray[i]);
-// }
+    console.log(myArray[i]);
+}
 
-// printElements ([1, 2, 3]); 
+printElements ([1, 2, 3]); 
 
 

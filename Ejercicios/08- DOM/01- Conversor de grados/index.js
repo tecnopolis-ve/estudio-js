@@ -22,5 +22,9 @@ document.querySelector('#errorMessage').addEventListener('click', function() {
     let value = parseFloat(inputElm.value);
     let message = document.querySelector('#errorMessage');
     
-    
+    if(Number.isNaN(value)) {
+        message.style.visibility = 'hidden';
+    } else {
+        message.style.visibility = 'visible'; 
+    }
 })
