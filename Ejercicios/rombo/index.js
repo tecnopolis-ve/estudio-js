@@ -13,7 +13,7 @@ for(let i = 0; i < tamano; i++){
     if(fill > tamano){
         fill = tamano - (fill - tamano);
     }
-    const ini = Math.round((tamano - fill) / 2);
+    const ini = Math.floor((tamano - fill) / 2);
     const fin = tamano - ini;
     for (let j = 1; j <= tamano; j++){
         if (j <= ini || j > fin){
