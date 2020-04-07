@@ -1,74 +1,66 @@
-const API_KEY = 'c9480f3b';
 
-// let translations = {
-//     'es-ES': {
-//         'myApp.welcomeText': 'Bienvenido a mi página web'
-//     },
-//     'en-GB': {
-//         'myApp.welcomeText': 'Welcome to my website'
-//     }
-// };
+//Una función que cada vez que haga click en el botón 'Me gusta' de la imagen, muestre un mensaje con estilo de personalidad y que enlace con otras imágenes acerca de posibles actividades que pudieran gustarle a la persona
 
-// let translateElements = [...document.querySelectorAll('*[data-translation]')];
+let imgButton1 = document.querySelector('#like-beach'); 
+let imgButton2 = document.querySelector('#like-desert');
+let imgButton3 = document.querySelector('#like-woods');
+// let imgUrl1 = document.querySelector('#museum');
+// let imgUrl2 = document.querySelector('#home');
+// let imgUrl3 = document.querySelector('#travel');
 
-// translateElements.map(function(element) {
-//     let texts = translations[navigator.language];
-//     element.textContent = texts[element.dataset.translation];
+// let age = parseInt(window.prompt('¿Qué edad tienes?'));
+
+let images = {
+    imgName: ['beach', 'desert', 'woods'],
+    imgButton: [imgButton1, imgButton2, imgButton3],
+    personality: ['type A', 'type B', 'type C', 'type D'],
+    activities: ['go to the beach', 'go to the museum', 'stay home']
+}; 
+
+// img1.addEventListener('click', function(event){
+//     console.log(result.personality[1]); 
+//     console.log('You\'re a beach kind of person'); 
 // })
 
-let countries = {
-    'USA': '🇺🇸'
-};
+// let {imgButton} = images;
 
+// console.log(imgButton); 
 
-function movieInfo() {
+// function selectImg(img) {
+//     images.imgButton.addEventListener('click', function(event){
+//         return images.personality[1]; 
+//     })
+// }
 
-    let searchTextInput = document.querySelector('#movie-title-input');
-    let searchText = searchTextInput.value.replace(' ', '+').toLowerCase();
-
-    fetch(`http://www.omdbapi.com/?i=t${searchText}&apikey=${API_KEY}`)
-    .then(response => {
-    let data = response.json();
-    return data;
-    })
-    .then(function(data){
-        let plotElement = document.querySelector('#movie-plot');
-        let posterElement = document.querySelector('#movie-poster');
-        let titleElement = document.querySelector('#movie-title');
-        let tagListElement = document.querySelector('#movie-tag-list');
-        let errorStyles = ['mt-1', 'text-left', 'text-red-500', 'text-xs', 'italic'];
-    if (data.Error) {
-        plotElement.classList.add(...errorStyles);
-        // plotElement.classList.add('mt-1', 'text-left', 'text-red-500', 'text-xs', 'italic');
-
-        plotElement.textContent = data.Error;
-        posterElement.classList.add('hidden');
-        titleElement.classList.add('hidden');
-        tagListElement.classList.add('hidden');
-    } else {
-        let country = countries[data.Country] || '';
-        let tagList = data.Genre.split(',');
-        let tagListSpans = tagList.map(function(element) {
-            return `
-                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    #${element.trim()}
-                </span>
-            `;
-        }).join('');
-
-        plotElement.textContent = data.Plot;
-        posterElement.src = data.Poster;
-        titleElement.textContent = `${country} ${data.Title}`;
-        tagListElement.innerHTML = tagListSpans;
-        posterElement.classList.remove('hidden');
-        titleElement.classList.remove('hidden');
-        tagListElement.classList.remove('hidden');
-        plotElement.classList.remove(...errorStyles);
-    }
+// function selectImg() {
     
-    let searchButton = document.querySelector('#search-button');
-    searchButton.addEventListener('click', movieInfo);
-});
-}
+// }
 
-movieInfo(); 
+// selectImg(); 
+
+// function yourActivities(){
+//     imgButton.forEach(function(element){
+//         element.addEventListener('click', function(){
+//         })
+//     })  
+//     return images.imgURL;   
+// }
+
+// yourActivities(); 
+
+/*Este div es para mostrar el mensaje con el análisis del tipo de personalidad. 
+Si la persona escoje un tipo de imagen, entonces se tiene que pintar este elemento. */
+
+imgButton1.addEventListener('click', function(event){
+    let parentElm = document.querySelector('#museum');
+    let childElm = document.createElement('p');
+    childElm.classList.add('bg-blue-100', 'border-t', 'border-b', 'border-blue-500', 'text-blue-700', 'px-4', 'py-3', 'role="alert"');
+    childElm.getAttribute('href', '#');
+    childElm.appendChild(document.createTextNode('Aquí va el mensaje informativo'));
+    parentElm.appendChild(childElm); 
+})
+
+
+
+
+
