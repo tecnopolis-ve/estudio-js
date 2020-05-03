@@ -84,7 +84,7 @@ function otherOption(event){
 
         if(event.keyCode === 13){ 
             
-        const url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${query.value}`;
+        const url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${encodeURI(query.value)}`;
             
         fetch(url)
             .then((response) => {
