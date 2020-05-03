@@ -1,5 +1,5 @@
 
-var myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
+const myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
 
 let imgButton1 = document.querySelector('#beach-like');
 let imgButton2 = document.querySelector('#desert-like');
@@ -65,23 +65,27 @@ function otherOption(event){
     let originalContainer = document.getElementById('cuerpo');
     originalContainer.classList.add('hidden');
 
-    let newContainer = document.getElementById('nuevas-container');
+    let formContainer = document.getElementById('form-container');
+    let imageContainer = document.getElementById('nuevas-container');
 
     let newInstruction = document.createElement('h1'); 
     newInstruction.appendChild(document.createTextNode('¿Qué quieres ver?'));
-    newContainer.append(newInstruction);
+    formContainer.append(newInstruction);
 
     let query = document.createElement('input');
     query.classList.add('shadow', 'appearance-none', 'border', 'rounded', 'w-full', 'py-2', 'px-3', 'text-gray-700', 'leading-tight', 'focus:outline-none', 'focus:shadow-outline');
     query.type = 'text'; 
     query.placeholder = 'Buscar';
     query.id = 'nuevas'; 
-    newContainer.append(query);
+    formContainer.append(query);
+
 
     query.addEventListener('keyup', function(event){ 
-        let url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${query.value}`;
 
-        if(event.keyCode === 13){   
+        if(event.keyCode === 13){ 
+            
+        const url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${query.value}`;
+            
         fetch(url)
             .then((response) => {
                 let data = response.json();
@@ -89,6 +93,7 @@ function otherOption(event){
             })
             .then((data) => {
                     
+               imageContainer.innerHTML = '';
                data.results.forEach(element => {
                     let img = document.createElement('img');
                     img.classList.add('h-auto', 'w-auto', 'py-2', 'px-4', 'object-contain');
@@ -100,7 +105,7 @@ function otherOption(event){
                     photoUser.appendChild(document.createTextNode(`foto hecha por: ${element.user.username}`));
                     
                     
-                    newContainer.append(img, photoUser);
+                    imageContainer.append(img, photoUser);
             })       
         });
     } 
