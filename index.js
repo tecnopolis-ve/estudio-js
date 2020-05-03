@@ -1,4 +1,6 @@
 
+var myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
+
 let imgButton1 = document.querySelector('#beach-like');
 let imgButton2 = document.querySelector('#desert-like');
 let imgButton3 = document.querySelector('#woods-like');
@@ -13,10 +15,7 @@ let sections = {
     },
     woods: {
         description: 'Si te gustan los bosques, aquí podrás mirar más de distintas partes del mundo:'
-    },
-    // nuevas: {
-    //     description: 'Quizás aquí encuentres algo que te guste más'
-    // }
+    }
 };
 
 function onButtonClick(event){
@@ -34,7 +33,6 @@ function onButtonClick(event){
             </p>
         `;
 
-    let myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
     let url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${target}`;
             
     fetch(url)
@@ -52,7 +50,7 @@ function onButtonClick(event){
                 
                 let photoUser = document.createElement('h6');
                 photoUser.appendChild(document.createTextNode(`foto hecha por: ${element.user.username}`));
-                photoUser.classList.add('text-bold', 'italic', 'float-right'); 
+                photoUser.classList.add('font-mono', 'text-center', 'text-bold', 'italic', 'float-right'); 
                         
                 container.append(img, photoUser);
             })
@@ -80,32 +78,34 @@ function otherOption(event){
     query.id = 'nuevas'; 
     newContainer.append(query);
 
-    query.addEventListener('input', function(event){ 
-        let myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
+    query.addEventListener('keyup', function(event){ 
         let url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${query.value}`;
-        
-            fetch(url)
+
+        if(event.keyCode === 13){   
+        fetch(url)
             .then((response) => {
                 let data = response.json();
                 return data;
             })
             .then((data) => {
                     
-                data.results.forEach(element => {
-                    let img = document.createElement('img'); 
+               data.results.forEach(element => {
+                    let img = document.createElement('img');
+                    img.classList.add('h-auto', 'w-auto', 'py-2', 'px-4', 'object-contain');
                     img.src = element.urls.regular;
                     img.alt = element.alt_description;
-                    img.classList.add('object-scale-down', 'h-48', 'w-full', 'py-2', 'px-4');  
-                        
+
                     let photoUser = document.createElement('h6');
+                    photoUser.classList.add('font-mono', 'text-center', 'text-bold', 'italic');  
                     photoUser.appendChild(document.createTextNode(`foto hecha por: ${element.user.username}`));
-                    photoUser.classList.add('text-bold', 'italic', 'float-right'); 
-                                
+                    
+                    
                     newContainer.append(img, photoUser);
-            })
-                   
+            })       
         });
-    })
+    } 
+})
+        
 }
 
 imgButton1.addEventListener('click', onButtonClick);
