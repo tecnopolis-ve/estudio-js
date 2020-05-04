@@ -1,12 +1,13 @@
 
-var myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
+const myId = "IbxiLlW8y0lgxnYUU6MH1XqL-vfYmz88d3RUX4Hc6P0"; 
 
 let imgButton1 = document.querySelector('#beach-like');
 let imgButton2 = document.querySelector('#desert-like');
 let imgButton3 = document.querySelector('#woods-like');
 let otherImg = document.querySelector('#nuevas-like');
+let unsplashLogo = document.querySelector('#logo'); 
 
-let sections = {
+const sections = {
     beach: {
         description: 'Si te gustan las playas, aquí podrás mirar más de distintas partes del mundo:', 
     },
@@ -19,6 +20,7 @@ let sections = {
 };
 
 function onButtonClick(event){
+    unsplashLogo.classList.add('absolute', 'top-0', 'right-0');
     let [target] = event.target.id.split('-'); 
     let container = document.getElementById(`${target}-container`);
     let descriptionText = sections[target].description; 
@@ -28,12 +30,12 @@ function onButtonClick(event){
     
         container.classList.remove('hidden');
         container.innerHTML = `
-            <p class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+            <p class="bg-orange-300 border-t border-l border-gray-500 text-gray-600 px-4 py-3" role="alert">
                 ${descriptionText}
             </p>
         `;
 
-    let url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${target}`;
+    const url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${target}`;
             
     fetch(url)
         .then((response) => {
@@ -46,11 +48,11 @@ function onButtonClick(event){
                 let img = document.createElement('img'); 
                 img.src = element.urls.regular;
                 img.alt = element.alt_description;
-                img.classList.add('object-scale-down', 'h-48', 'w-full', 'py-2', 'px-4');  
+                img.classList.add('bg-orange-400', 'border-l', 'border-gray-500', 'object-scale-down', 'h-48', 'w-full', 'py-2', 'px-4');  
                 
                 let photoUser = document.createElement('h6');
                 photoUser.appendChild(document.createTextNode(`foto hecha por: ${element.user.username}`));
-                photoUser.classList.add('font-mono', 'text-center', 'text-bold', 'italic', 'float-right'); 
+                photoUser.classList.add('bg-orange-300', 'font-mono', 'text-center', 'text-bold', 'text-gray-600','italic', 'float-right'); 
                         
                 container.append(img, photoUser);
             })
@@ -64,22 +66,25 @@ function otherOption(event){
     otherImg.classList.add('hidden'); 
     let originalContainer = document.getElementById('cuerpo');
     originalContainer.classList.add('hidden');
-
-    let newContainer = document.getElementById('nuevas-container');
+    unsplashLogo.classList.add('absolute', 'top-0', 'right-0');
+   
+    let formContainer = document.getElementById('form-container');
+    let imageContainer = document.getElementById('nuevas-container');
 
     let newInstruction = document.createElement('h1'); 
     newInstruction.appendChild(document.createTextNode('¿Qué quieres ver?'));
-    newContainer.append(newInstruction);
+    newInstruction.classList.add('text-serif', 'text-gray-600', 'text-3xl', 'py-2', 'px-4');
+    formContainer.append(newInstruction);
 
     let query = document.createElement('input');
-    query.classList.add('shadow', 'appearance-none', 'border', 'rounded', 'w-full', 'py-2', 'px-3', 'text-gray-700', 'leading-tight', 'focus:outline-none', 'focus:shadow-outline');
+    query.classList.add('shadow', 'appearance-none', 'border', 'rounded', 'w-auto', 'py-2', 'px-3', 'text-gray-700', 'leading-tight', 'focus:outline-none', 'focus:shadow-outline', 'placeholder-orange-700', 'placeholder-opacity-50');
     query.type = 'text'; 
     query.placeholder = 'Buscar';
     query.id = 'nuevas'; 
-    newContainer.append(query);
+    formContainer.append(query);
 
     query.addEventListener('keyup', function(event){ 
-        let url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${query.value}`;
+        const url = `https://api.unsplash.com/search/photos/?client_id=${myId}&query=${query.value}`;
 
         if(event.keyCode === 13){   
         fetch(url)
@@ -88,10 +93,11 @@ function otherOption(event){
                 return data;
             })
             .then((data) => {
-                    
+                
+               imageContainer.innerHTML = '';  
                data.results.forEach(element => {
                     let img = document.createElement('img');
-                    img.classList.add('h-auto', 'w-auto', 'py-2', 'px-4', 'object-contain');
+                    img.classList.add('h-screen', 'w-screen', 'py-2', 'px-4', 'object-scale-down');
                     img.src = element.urls.regular;
                     img.alt = element.alt_description;
 
@@ -99,8 +105,7 @@ function otherOption(event){
                     photoUser.classList.add('font-mono', 'text-center', 'text-bold', 'italic');  
                     photoUser.appendChild(document.createTextNode(`foto hecha por: ${element.user.username}`));
                     
-                    
-                    newContainer.append(img, photoUser);
+                imageContainer.append(img, photoUser);
             })       
         });
     } 
