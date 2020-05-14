@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08- DOM | 01- Conversor de grados</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 flex h-screen text-gray-800">
+    <div class="m-auto w-full max-w-md">
+        <h3 class="text-3xl font-bold font-sans">Conversor de grados</h3>
+        <form class="bg-white shadow-md rounded p-10">
+            <div class="flex">
+                <div class="mb-4 flex auto">
+                    <label class="block text-sm font-bold mb-2" for="inputValue">Grados (fahrenheit)    
+                    </label>
+                    <input
+                    class="flex-auto shadow appareance-none border rounded w-half h-half"
+                    id="inputElm"
+                    type="text"
+                    placeholder="0"/>
+                <p class="mt-1 text-left text-red-500 text-xs italic"
+                    id="errorMessage"
+                    style="visibility: visible">
+                    Error en la entrada de datos. 
+                </p>
+                </div>
+            <p id="resultElm" class="flex-auto text-6xl">0º F</p>
+        </div>
+    <div class="flex items-center justify-between">
+        <button
+            class="bg-pink-400 hover:bg-pink-800 text-white font-bold py-2 px-4 rounded hover:shadow-md"
+            id="convertButton"
+            type="button">
+            Convertir</button>
+    </div>  
+    </form> 
+</div>  
+    <script type="text/javascript" src=index.js></script>
+</body>
+</html>
